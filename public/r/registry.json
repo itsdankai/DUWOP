@@ -157,7 +157,7 @@
       "name": "anymouse",
       "type": "registry:component",
       "title": "Anymouse",
-      "description": "Anonymous idea / bug / gripe box. <Anymouse /> opens a dialog and POSTs to /api/anymouse; sendAnymouse() in lib/anymouse-server.ts posts it to the app's Discord thread (ANYMOUSE_DISCORD_WEBHOOK + ANYMOUSE_THREAD_ID).",
+      "description": "Anonymous idea / bug / gripe box. Put <Anymouse inHeader /> in the app header (every page); <Anymouse /> is the full button. It opens a dialog and POSTs to /api/anymouse; sendAnymouse() in lib/anymouse-server.ts posts it to the app's Discord thread (ANYMOUSE_DISCORD_WEBHOOK + ANYMOUSE_THREAD_ID).",
       "dependencies": [
         "lucide-react"
       ],
