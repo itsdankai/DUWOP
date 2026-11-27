@@ -55,6 +55,25 @@ Drifting and Horizon. Add
 Pick the default look and the allowed themes in `lib/duwop-config.ts`. To save the look somewhere other
 than the browser, subscribe with `onLookChange(look => ...)`.
 
+## Anymouse
+
+`npx shadcn add @duwop/anymouse` installs an anonymous idea / bug / gripe box. Every app puts it in its
+header, so it is on every page, just left of the light/dark switch:
+
+```tsx
+import { Anymouse } from "@/components/anymouse"
+
+<header>
+  …
+  <Anymouse inHeader />   {/* mouse icon + "Anymouse"; the word hides on phones */}
+  <ModeToggle />
+  <AccountMenu />
+</header>
+```
+
+A plain `<Anymouse />` (outlined button) can sit on a Settings page as well. The server answers
+`POST /api/anymouse` with `sendAnymouse()` from `lib/anymouse-server.ts`.
+
 ## Build
 
 ```sh

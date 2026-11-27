@@ -2,6 +2,8 @@
 // Settings page); it opens a small dialog and POSTs { kind, text, page } as JSON to `endpoint`. The app's server
 // answers that with sendAnymouse() from lib/anymouse-server.ts, which posts to the app's Discord thread.
 // Nothing about the user is sent: no name, no account, no device.
+// Every app puts <Anymouse inHeader /> in its header, just left of the light/dark switch, so the box is on every page
+// (builder, 2026-11-25). A plain <Anymouse /> on Settings is optional.
 
 import { Bug, Lightbulb, Mouse, Send, ThumbsDown } from "lucide-react";
 import { type ReactNode, useState } from "react";
@@ -31,6 +33,7 @@ export function Anymouse({
   headers,
   children,
   className,
+  inHeader = false,
 }: {
   endpoint?: string;
   /** Extra request headers, e.g. a CSRF token. The request always sends JSON with the browser's cookies. */
@@ -38,6 +41,8 @@ export function Anymouse({
   /** The trigger's label. Default: a mouse icon and "Anymouse". */
   children?: ReactNode;
   className?: string;
+  /** The always-there header button: ghost, header height; the word hides on phones, leaving the mouse. */
+  inHeader?: boolean;
 }) {
   const [open, setOpen] = useState(false);
   const [kind, setKind] = useState<AnymouseKind>("idea");
@@ -76,10 +81,19 @@ export function Anymouse({
       }}
     >
       <DialogTrigger asChild>
-        <Button variant="outline" className={className}>
+        <Button
+          variant={inHeader ? "ghost" : "outline"}
+          aria-label={inHeader ? "Anymouse: send an idea, bug or gripe" : undefined}
+          title={inHeader ? "Anymouse: an idea, a bug or a gripe" : undefined}
+          className={cn(
+            inHeader && "h-9 gap-1.5 px-2 text-muted-foreground hover:text-foreground max-sm:size-11 max-sm:px-0",
+            className,
+          )}
+        >
           {children ?? (
             <>
-              <Mouse className="size-4" aria-hidden /> Anymouse
+              <Mouse className="size-4" aria-hidden />{" "}
+              <span className={cn(inHeader && "max-md:sr-only")}>Anymouse</span>
             </>
           )}
         </Button>
